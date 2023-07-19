@@ -17,13 +17,13 @@ import (
 	"github.com/ipld/go-ipld-prime"
 	"github.com/ipld/go-ipld-prime/codec/dagjson"
 	cidlink "github.com/ipld/go-ipld-prime/linking/cid"
-	basicnode "github.com/ipld/go-ipld-prime/node/basic"
-	"github.com/ipni/go-libipni/announce"
-	"github.com/ipni/go-libipni/announce/message"
 	ic "github.com/libp2p/go-libp2p/core/crypto"
 	"github.com/libp2p/go-libp2p/core/peer"
 	"github.com/multiformats/go-multiaddr"
 	manet "github.com/multiformats/go-multiaddr/net"
+
+	"github.com/ipni/go-libipni/announce"
+	"github.com/ipni/go-libipni/announce/message"
 )
 
 // Publisher is an HTTP publisher that announces the head of an advertisement
@@ -35,10 +35,12 @@ type Publisher struct {
 	handlerPath string
 	peerID      peer.ID
 	privKey     ic.PrivKey
-	rl          sync.RWMutex
-	root        cid.Cid
-	senders     []announce.Sender
-	extraData   []byte
+
+	rl   sync.RWMutex
+	root cid.Cid
+
+	senders   []announce.Sender
+	extraData []byte
 }
 
 var _ http.Handler = (*Publisher)(nil)
